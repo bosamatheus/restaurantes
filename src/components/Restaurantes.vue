@@ -21,8 +21,6 @@
       </div>
     </div>
 
-    <div id="map"></div>
-
     <!-- Modal -->
     <div
       class="modal fade"
@@ -53,6 +51,7 @@
               <div class="col-sm-12">
                 <label for="novoEndereco">Endereço:</label>
                 <input id="novoEndereco" type="text" v-model="novoEndereco">
+                <div id="map"></div>
               </div>
             </div>
           </div>
@@ -176,22 +175,12 @@
 </template>
 
 <style>
-  #map {
-    height: 100%;
-  }
+  html { height: 100% }
+  body { height: 100%; margin: 0; padding: 0 }
+  #map { height: 100% }
 </style>
 
-<script>
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
-}
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQZ3hJqln0I1G1p3smuKIPZYJFPovfJnU&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=coloque_sua_chave_aqui&callback=initMap" async defer></script>
 
 <script>
 import Chart from 'chart.js';
@@ -214,6 +203,7 @@ export default {
       if (endereco != null && endereco != 'INFO')
         this.restaurantes.push({ nome: key, endereco: endereco });
     }
+    this.inicializaMapa();
     this.carregaGrafico();
   },
   methods: {
@@ -250,6 +240,14 @@ export default {
       this.restaurantes.splice(indice, 1);
       localStorage.removeItem(this.nome);
       alert("Restaurante removido com sucesso!");
+    },
+    inicializaMapa() {
+      var mapOptions = {
+        center: new google.maps.LatLng(-34.397, 150.644),
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     },
     carregaGrafico() {
       var estados = [];
