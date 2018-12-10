@@ -273,7 +273,7 @@ export default {
               labels: ["PR", "SP", "SC", "RJ", "MG"],
               datasets: [{
                   label: "Número de Restaurantes",
-                  data: [3, 2, 3, 4, 5],
+                  data: [1, 2, 3, 4, 5],
                   backgroundColor: cores,
                   borderColor: cores,
                   borderWidth: 1
