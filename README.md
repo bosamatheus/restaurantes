@@ -1,6 +1,6 @@
-# estabelecimentos
+# Restaurantes
 
-> Uma aplicacao web com uma lista de estabelecimentos
+> CRUD em Vuejs e Webpack envolvendo estabelecimentos (restaurantes). Utiliza API de geolocalização para o cadastro de endereços, e também gera relatório com base na quantidade de estabelecimentos por estado. 
 
 ## Build Setup
 
