@@ -3,7 +3,7 @@
     <div class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading">Não lembra o nome daquele restaurante especial?</h1>
-        <p class="lead text-muted">Aqui no Comidarada você encontra!</p>
+        <p class="lead text-muted">Aqui no Restaurantes você encontra!</p>
         <p>
           <button
             type="button"
@@ -16,10 +16,12 @@
             class="btn btn-primary my-2"
             data-toggle="modal"
             data-target="#modalGrafico"
-          >Gráfico</button>
+          >Relatório</button>
         </p>
       </div>
     </div>
+
+    <div id="mapid"></div>
 
     <!-- Modal -->
     <div
@@ -51,7 +53,6 @@
               <div class="col-sm-12">
                 <label for="novoEndereco">Endereço:</label>
                 <input id="novoEndereco" type="text" v-model="novoEndereco">
-                <div id="map"></div>
               </div>
             </div>
           </div>
@@ -171,19 +172,12 @@
       </div>
     </div>
   </main>
-
 </template>
-
-<style>
-  html { height: 100% }
-  body { height: 100%; margin: 0; padding: 0 }
-  #map { height: 100% }
-</style>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=coloque_sua_chave_aqui&callback=initMap" async defer></script>
 
 <script>
 import Chart from 'chart.js';
+// import L from 'leaflet';
+// import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 export default {
   name: "Restaurantes",
@@ -203,7 +197,6 @@ export default {
       if (endereco != null && endereco != 'INFO')
         this.restaurantes.push({ nome: key, endereco: endereco });
     }
-    this.inicializaMapa();
     this.carregaGrafico();
   },
   methods: {
@@ -240,14 +233,6 @@ export default {
       this.restaurantes.splice(indice, 1);
       localStorage.removeItem(this.nome);
       alert("Restaurante removido com sucesso!");
-    },
-    inicializaMapa() {
-      var mapOptions = {
-        center: new google.maps.LatLng(-34.397, 150.644),
-        zoom: 8,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     },
     carregaGrafico() {
       var estados = [];
